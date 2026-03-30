@@ -96,6 +96,36 @@
       transform: translateY(0);
     }
 
+    /* ── JUMP NAV ── */
+    .jump-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 20px 24px;
+      background: var(--cream);
+      border-bottom: 1px solid rgba(26,20,16,0.08);
+    }
+    .jump-nav a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      opacity: 0.55;
+      transition: opacity 0.2s ease;
+    }
+    .jump-nav a:hover {
+      opacity: 1;
+    }
+    .jump-nav-dot {
+      font-size: 11px;
+      color: var(--ink);
+      opacity: 0.3;
+    }
+
     /* ── SECTION 1: HERO ── */
     .hero {
       background: var(--ink);
@@ -856,8 +886,21 @@
     <p class="hero-subhead reveal">The story behind the name, the founder, and the vision.</p>
   </section>
 
+  <!-- JUMP NAV -->
+  <nav class="jump-nav">
+    <a href="#the-name">The Name</a>
+    <span class="jump-nav-dot">·</span>
+    <a href="#origin">Our Origin</a>
+    <span class="jump-nav-dot">·</span>
+    <a href="#problem">The Problem</a>
+    <span class="jump-nav-dot">·</span>
+    <a href="#how-it-works">How It Works</a>
+    <span class="jump-nav-dot">·</span>
+    <a href="#founder">The Founder</a>
+  </nav>
+
   <!-- SECTION 2: THE NAME -->
-  <section class="the-name">
+  <section class="the-name" id="the-name">
     <p class="eyebrow reveal">The Name</p>
     <div class="display-word reveal">ụlọ</div>
     <p class="pronunciation reveal">pronounced oo-loh</p>
@@ -872,7 +915,7 @@
   </section>
 
   <!-- SECTION 3: THE ORIGIN STORY -->
-  <section class="origin">
+  <section class="origin" id="origin">
     <p class="eyebrow reveal" style="text-align:center;">The Origin</p>
     <h2 class="section-heading reveal" style="text-align:center; margin-top:16px;">Built from lived experience.</h2>
     <div class="origin-grid">
@@ -889,7 +932,7 @@
   </section>
 
   <!-- SECTION 4: THE PROBLEM -->
-  <section class="problem">
+  <section class="problem" id="problem">
     <p class="eyebrow reveal">The Problem</p>
     <h2 class="section-heading reveal" style="margin-top:16px;">Women were everywhere. The structures to connect them were not.</h2>
 
@@ -910,7 +953,7 @@
   </section>
 
   <!-- SECTION 5: HOW IT WORKS -->
-  <section class="how-it-works">
+  <section class="how-it-works" id="how-it-works">
     <p class="eyebrow reveal">How It Works</p>
     <h2 class="section-heading reveal" style="margin-top:16px;">Four steps to finding your people.</h2>
 
@@ -1019,7 +1062,7 @@
   </section>
 
   <!-- SECTION 8: FOUNDER PORTRAIT + BIO -->
-  <section class="founder">
+  <section class="founder" id="founder">
     <div class="founder-grid">
       <div class="founder-image reveal">
         <img src="IMG_6968.jpg" alt="Olivia Igbokwe, Founder of Ulo"
