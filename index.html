@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ulo — Where Women Find Their People</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Cormorant+SC:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --cream: #F7F2EA;
+      --ink: #1A1410;
+      --blush: #C17B5E;
+      --gold: #8B3A8F;
+      --warm-mid: #6B5C4E;
+      --light-cream: #FBF8F3;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ─── REVEAL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: 72px;
+      background: var(--cream);
+      border-bottom: 1px solid rgba(26, 20, 16, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 28px;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 400;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--blush);
+    }
+
+    .nav-links .nav-join {
+      background: var(--blush);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 2px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-links .nav-join:hover {
+      background: #a8684d;
+      color: #fff;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      background: var(--ink);
+      display: flex;
+      align-items: center;
+      padding: 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-glyph {
+      position: absolute;
+      right: -2%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(200px, 28vw, 400px);
+      color: var(--cream);
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+      line-height: 1;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      padding-top: 72px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      margin-bottom: 28px;
+      text-transform: uppercase;
+    }
+
+    .hero-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(56px, 7.5vw, 96px);
+      color: var(--cream);
+      line-height: 1.0;
+      margin-bottom: 28px;
+    }
+
+    .hero-subhead {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 18px;
+      line-height: 1.65;
+      color: rgba(247, 242, 234, 0.7);
+      max-width: 520px;
+      margin-bottom: 44px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      background: var(--blush);
+      color: #fff;
+      padding: 16px 36px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background 0.2s ease;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: #a8684d;
+    }
+
+    .btn-ghost {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 400;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      background: transparent;
+      color: var(--cream);
+      padding: 15px 35px;
+      border-radius: 2px;
+      border: 1px solid var(--cream);
+      text-decoration: none;
+      transition: background 0.2s ease, color 0.2s ease;
+      display: inline-block;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(247, 242, 234, 0.08);
+    }
+
+    /* ─── VALUE PROPS ─── */
+    .value-props {
+      background: var(--cream);
+      padding: 100px 60px;
+    }
+
+    .section-eyebrow {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 60px;
+      text-transform: uppercase;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .value-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .value-dash {
+      width: 32px;
+      height: 2px;
+      background: var(--blush);
+      margin-bottom: 24px;
+    }
+
+    .value-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 26px;
+      color: var(--ink);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .value-body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      color: var(--warm-mid);
+      line-height: 1.7;
+    }
+
+    /* ─── LIFE STAGES ─── */
+    .life-stages {
+      background: var(--light-cream);
+      padding: 100px 60px;
+    }
+
+    .section-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 48px;
+      color: var(--ink);
+      text-align: center;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .section-subtext {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      color: var(--warm-mid);
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .stages-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto 40px;
+    }
+
+    .stage-card {
+      background: var(--cream);
+      border: 1px solid rgba(26, 20, 16, 0.08);
+      padding: 24px;
+      border-radius: 2px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .stage-card:hover {
+      border-color: rgba(193, 123, 94, 0.3);
+      box-shadow: 0 4px 20px rgba(26, 20, 16, 0.06);
+    }
+
+    .stage-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 18px;
+      color: var(--ink);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .stage-label {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 300;
+      font-size: 11px;
+      color: var(--warm-mid);
+      letter-spacing: 0.06em;
+    }
+
+    .stages-cta {
+      text-align: center;
+    }
+
+    .link-blush {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 400;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--blush);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .link-blush:hover {
+      opacity: 0.75;
+    }
+
+    /* ─── STATS ─── */
+    .stats {
+      background: var(--ink);
+      padding: 100px 60px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1100px;
+      margin: 0 auto;
+      gap: 0;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 0 48px;
+      position: relative;
+    }
+
+    .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 10%;
+      height: 80%;
+      width: 1px;
+      background: rgba(247, 242, 234, 0.12);
+    }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 72px;
+      color: var(--cream);
+      line-height: 1.0;
+      margin-bottom: 16px;
+    }
+
+    .stat-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      color: rgba(247, 242, 234, 0.6);
+      max-width: 200px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ─── FOUNDER TEASER ─── */
+    .founder {
+      background: var(--light-cream);
+      padding: 100px 60px;
+    }
+
+    .founder-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1.2fr;
+      gap: 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .founder-quote-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 120px;
+      line-height: 0;
+      color: var(--blush);
+      display: block;
+      margin-bottom: 32px;
+      position: relative;
+      top: 24px;
+    }
+
+    .founder-quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 36px;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 24px;
+    }
+
+    .founder-image {
+      position: relative;
+    }
+
+    .founder-image-tag {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(26,20,16,0.72);
+      backdrop-filter: blur(6px);
+      padding: 10px 16px;
+      border-radius: 2px;
+    }
+
+    .founder-image-tag p {
+      font-family: 'Cormorant SC', serif;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--blush);
+      margin: 0 0 2px;
+    }
+
+    .founder-image-tag strong {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--cream);
+    }
+
+    .founder-attribution {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 400;
+      font-size: 12px;
+      color: var(--warm-mid);
+      letter-spacing: 0.1em;
+    }
+
+    .founder-bio {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      color: var(--warm-mid);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    /* ─── CTA SECTION ─── */
+    .cta-section {
+      background: #B56B4A;
+      padding: 120px 60px;
+      text-align: center;
+    }
+
+    .cta-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 56px;
+      color: var(--cream);
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    .cta-subhead {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 18px;
+      color: rgba(247, 242, 234, 0.8);
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+
+    .btn-dark {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      background: var(--ink);
+      color: var(--cream);
+      padding: 18px 48px;
+      border-radius: 2px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s ease;
+    }
+
+    .btn-dark:hover {
+      background: #2a1f17;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--ink);
+      padding: 72px 60px 48px;
+      text-align: center;
+      border-top: 1px solid rgba(247, 242, 234, 0.06);
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 36px;
+      color: var(--cream);
+      display: block;
+      margin-bottom: 12px;
+      text-decoration: none;
+    }
+
+    .footer-tagline {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: rgba(247, 242, 234, 0.4);
+      letter-spacing: 0.06em;
+      margin-bottom: 40px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      list-style: none;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: rgba(247, 242, 234, 0.5);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--cream);
+    }
+
+    .footer-copy {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: rgba(247, 242, 234, 0.25);
+    }
+
+    /* ─── MOBILE RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 24px;
+      }
+
+      .nav-links .nav-story,
+      .nav-links .nav-how {
+        display: none;
+      }
+
+      .hero {
+        padding: 0 24px;
+        padding-top: 72px;
+        min-height: 100svh;
+        align-items: center;
+      }
+
+      .hero-content {
+        padding-top: 40px;
+        padding-bottom: 60px;
+      }
+
+      .hero-headline {
+        font-size: clamp(48px, 8vw, 96px);
+      }
+
+      .hero-subhead {
+        font-size: 16px;
+      }
+
+      .value-props {
+        padding: 72px 24px;
+      }
+
+      .value-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .life-stages {
+        padding: 72px 24px;
+      }
+
+      .stages-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats {
+        padding: 72px 24px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 56px;
+      }
+
+      .stat-item {
+        padding: 0;
+      }
+
+      .stat-item::after {
+        display: none !important;
+      }
+
+      .founder {
+        padding: 72px 24px;
+      }
+
+      .founder-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .founder-quote-text {
+        font-size: 28px;
+      }
+
+      .cta-section {
+        padding: 80px 24px;
+      }
+
+      .cta-headline {
+        font-size: 40px;
+      }
+
+      .cta-subhead {
+        font-size: 16px;
+      }
+
+      footer {
+        padding: 60px 24px 40px;
+      }
+
+      .section-heading {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-ctas {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .btn-primary,
+      .btn-ghost {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <a href="index.html" class="nav-logo">ulo</a>
+    <ul class="nav-links">
+      <li class="nav-story"><a href="our-story.html">Our Story</a></li>
+      <li class="nav-how"><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="join.html" class="nav-join">Join</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-bg-glyph" aria-hidden="true">ụlọ</div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Washington D.C. · Launching May 2025</p>
+      <h1 class="hero-headline">
+        Where women<br />find their people.
+      </h1>
+      <p class="hero-subhead">
+        Ulo connects women by city, life stage, and career chapter. Because the right introduction at the right moment can change everything.
+      </p>
+      <div class="hero-ctas">
+        <a href="join.html" class="btn-primary">Join the Waitlist →</a>
+        <a href="our-story.html" class="btn-ghost">Our Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── VALUE PROPS ─── -->
+  <section class="value-props">
+    <p class="section-eyebrow">Why Ulo</p>
+    <div class="value-grid">
+      <div class="value-card reveal">
+        <div class="value-dash"></div>
+        <h3 class="value-heading">Context-matched connections</h3>
+        <p class="value-body">Every match filtered by city and life stage — so you're never meeting someone for the sake of meeting someone.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-dash"></div>
+        <h3 class="value-heading">Curated IRL events</h3>
+        <p class="value-body">Intimate gatherings designed for your chapter. Small rooms, real conversations, lasting connections.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-dash"></div>
+        <h3 class="value-heading">Circles for every stage</h3>
+        <p class="value-body">Ongoing digital communities organized by life stage. Ask real questions. Get honest answers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── LIFE STAGES TEASER ─── -->
+  <section class="life-stages">
+    <h2 class="section-heading">Ten life stages. One community.</h2>
+    <p class="section-subtext">Wherever you are, there's a circle waiting.</p>
+
+    <div class="stages-grid reveal">
+      <div class="stage-card">
+        <p class="stage-name">New in the City</p>
+        <span class="stage-label">Finding your footing</span>
+      </div>
+      <div class="stage-card">
+        <p class="stage-name">Career Pivot</p>
+        <span class="stage-label">Reinventing your path</span>
+      </div>
+      <div class="stage-card">
+        <p class="stage-name">Executive</p>
+        <span class="stage-label">Leading at the top</span>
+      </div>
+      <div class="stage-card">
+        <p class="stage-name">New Mom</p>
+        <span class="stage-label">Navigating early parenthood</span>
+      </div>
+      <div class="stage-card">
+        <p class="stage-name">Single Mom</p>
+        <span class="stage-label">Building your village</span>
+      </div>
+      <div class="stage-card">
+        <p class="stage-name">Newly Married</p>
+        <span class="stage-label">Growing together</span>
+      </div>
+      <div class="stage-card">
+        <p class="stage-name">Newly Single</p>
+        <span class="stage-label">Rediscovering yourself</span>
+      </div>
+      <div class="stage-card">
+        <p class="stage-name">Empty Nester</p>
+        <span class="stage-label">The next great chapter</span>
+      </div>
+      <div class="stage-card">
+        <p class="stage-name">Returning Pro</p>
+        <span class="stage-label">Back and ready</span>
+      </div>
+      <div class="stage-card">
+        <p class="stage-name">Founder</p>
+        <span class="stage-label">Building something new</span>
+      </div>
+    </div>
+
+    <div class="stages-cta reveal">
+      <a href="how-it-works.html" class="link-blush">See how it works →</a>
+    </div>
+  </section>
+
+  <!-- ─── STATS ─── -->
+  <section class="stats">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <p class="stat-number">3.4×</p>
+        <p class="stat-desc">more likely to be promoted with a strong female peer network</p>
+      </div>
+      <div class="stat-item reveal">
+        <p class="stat-number">89%</p>
+        <p class="stat-desc">of women say a mentor connection changed their career trajectory</p>
+      </div>
+      <div class="stat-item reveal">
+        <p class="stat-number">78%</p>
+        <p class="stat-desc">say their biggest professional challenge is finding the right peer</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOUNDER TEASER ─── -->
+  <section class="founder">
+    <div class="founder-grid">
+      <div class="founder-image reveal">
+        <img src="IMG_6968.jpg" alt="Olivia Igbokwe, Founder of Ulo"
+             style="width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center top;border-radius:3px;display:block;">
+        <div class="founder-image-tag">
+          <p>Founder</p>
+          <strong>Olivia Igbokwe</strong>
+        </div>
+      </div>
+      <div class="reveal">
+        <span class="founder-quote-mark" aria-hidden="true">"</span>
+        <p class="founder-quote-text">I wanted to build the circle you didn't know you were missing.</p>
+        <p class="founder-attribution">— Olivia Igbokwe, Founder</p>
+      </div>
+      <div class="reveal">
+        <p class="founder-bio">
+          Olivia Igbokwe built her career across the largest stages in America, from Capitol Hill to one of the world's top two global technology firms. She founded Ulo after recognizing that the infrastructure to connect accomplished women simply didn't exist.
+        </p>
+        <a href="our-story.html" class="link-blush">Read Our Story →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA SECTION ─── -->
+  <section class="cta-section">
+    <h2 class="cta-headline reveal">D.C. is first. You can be too.</h2>
+    <p class="cta-subhead reveal">We're launching city by city. Join the waitlist for Washington D.C.</p>
+    <a href="join.html" class="btn-dark reveal">Join the Waitlist →</a>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <a href="index.html" class="footer-logo">ulo</a>
+    <p class="footer-tagline">Where women find their people.</p>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="our-story.html">Our Story</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="join.html">Join</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Ulo. All rights reserved. — meetulo.com</p>
+  </footer>
+
+  <!-- ─── REVEAL ANIMATION JS ─── -->
+  <script>
+    (function () {
+      var elements = document.querySelectorAll('.reveal');
+
+      if (!('IntersectionObserver' in window)) {
+        elements.forEach(function (el) {
+          el.classList.add('visible');
+        });
+        return;
+      }
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.12,
+          rootMargin: '0px 0px -40px 0px'
+        }
+      );
+
+      elements.forEach(function (el) {
+        observer.observe(el);
+      });
+    })();
+  </script>
+
+</body>
+</html>

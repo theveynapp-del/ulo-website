@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join the Waitlist — Ulo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Cormorant+SC:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ===================== CSS VARIABLES ===================== */
+    :root {
+      --cream: #F7F2EA;
+      --ink: #1A1410;
+      --blush: #C17B5E;
+      --gold: #8B3A8F;
+      --warm-mid: #6B5C4E;
+      --light-cream: #FBF8F3;
+    }
+
+    /* ===================== RESET ===================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--light-cream);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ===================== NAV ===================== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: 72px;
+      background: var(--cream);
+      border-bottom: 1px solid rgba(26, 20, 16, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 28px;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 400;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      transition: color 0.2s ease;
+    }
+
+    .nav-links li a:hover {
+      color: var(--blush);
+    }
+
+    .nav-links li a.nav-cta {
+      background: var(--blush);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 2px;
+      transition: background 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav-links li a.nav-cta:hover {
+      background: var(--blush);
+      opacity: 0.88;
+      color: #fff;
+    }
+
+    /* ===================== REVEAL ANIMATIONS ===================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===================== MAIN SECTION ===================== */
+    .join-main {
+      background: var(--light-cream);
+      min-height: 100vh;
+      padding-top: 72px;
+      display: flex;
+    }
+
+    .join-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      min-height: calc(100vh - 72px);
+    }
+
+    /* ===================== LEFT COLUMN ===================== */
+    .left-col {
+      padding: 80px 60px 80px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .eyebrow {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 400;
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(40px, 4vw, 64px);
+      color: var(--ink);
+      margin-top: 20px;
+      line-height: 1.0;
+    }
+
+    .subhead {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--warm-mid);
+      line-height: 1.8;
+      margin-top: 24px;
+      max-width: 420px;
+    }
+
+    .bullets {
+      list-style: none;
+      margin-top: 32px;
+    }
+
+    .bullets li {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: var(--ink);
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bullets li::before {
+      content: "—";
+      color: var(--blush);
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .left-quote {
+      margin-top: 48px;
+      border-left: 2px solid var(--blush);
+      padding-left: 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 20px;
+      color: var(--warm-mid);
+      line-height: 1.5;
+    }
+
+    /* ===================== RIGHT COLUMN ===================== */
+    .right-col {
+      padding: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-card {
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 8px 60px rgba(26, 20, 16, 0.08);
+      padding: 56px 48px;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .form-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 32px;
+      color: var(--ink);
+      line-height: 1.15;
+    }
+
+    .form-subtext {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: var(--warm-mid);
+      margin-top: 8px;
+      margin-bottom: 36px;
+    }
+
+    /* ===================== FORM FIELDS ===================== */
+    .form-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-label {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+
+    .field-sublabel {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 11px;
+      color: var(--warm-mid);
+      margin-top: -2px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select {
+      border: 1px solid rgba(26, 20, 16, 0.15);
+      border-radius: 2px;
+      padding: 12px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--ink);
+      width: 100%;
+      background: #FAFAFA;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="text"]::placeholder,
+    input[type="email"]::placeholder {
+      color: rgba(107, 92, 78, 0.45);
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus {
+      border-color: var(--blush);
+      box-shadow: 0 0 0 3px rgba(193, 123, 94, 0.12);
+    }
+
+    .select-wrapper {
+      position: relative;
+    }
+
+    .select-wrapper::after {
+      content: "";
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid var(--warm-mid);
+      pointer-events: none;
+    }
+
+    select {
+      cursor: pointer;
+      padding-right: 36px;
+    }
+
+    option[disabled] {
+      color: rgba(107, 92, 78, 0.4);
+    }
+
+    /* ===================== CHECKBOX GRID ===================== */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 16px;
+      margin-top: 4px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+
+    .custom-checkbox {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid rgba(26, 20, 16, 0.25);
+      border-radius: 2px;
+      background: #FAFAFA;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .custom-checkbox svg {
+      display: none;
+    }
+
+    .checkbox-item input[type="checkbox"]:checked ~ .custom-checkbox {
+      background: var(--blush);
+      border-color: var(--blush);
+    }
+
+    .checkbox-item input[type="checkbox"]:checked ~ .custom-checkbox svg {
+      display: block;
+    }
+
+    .checkbox-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    /* ===================== SUBMIT BUTTON ===================== */
+    .submit-btn {
+      background: var(--blush);
+      color: #fff;
+      border: none;
+      width: 100%;
+      padding: 18px;
+      border-radius: 2px;
+      font-family: 'Cormorant SC', serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      margin-top: 4px;
+      transition: opacity 0.2s ease, background 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      opacity: 0.88;
+    }
+
+    .below-btn-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--warm-mid);
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    /* ===================== SUCCESS STATE ===================== */
+    .success-state {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 24px 0;
+      gap: 20px;
+    }
+
+    .success-state.active {
+      display: flex;
+    }
+
+    .success-checkmark {
+      width: 72px;
+      height: 72px;
+    }
+
+    .success-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 36px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .success-message {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--warm-mid);
+      line-height: 1.7;
+      max-width: 320px;
+    }
+
+    .back-link {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--blush);
+      margin-top: 8px;
+      transition: opacity 0.2s ease;
+    }
+
+    .back-link:hover {
+      opacity: 0.75;
+    }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      background: var(--ink);
+      padding: 64px 48px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 36px;
+      color: var(--cream);
+      letter-spacing: 0.01em;
+    }
+
+    .footer-tagline {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: rgba(247, 242, 234, 0.5);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links li a {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: rgba(247, 242, 234, 0.55);
+      transition: color 0.2s ease;
+    }
+
+    .footer-links li a:hover {
+      color: var(--cream);
+    }
+
+    .footer-divider {
+      width: 100%;
+      max-width: 480px;
+      height: 1px;
+      background: rgba(247, 242, 234, 0.1);
+    }
+
+    .footer-copyright {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(247, 242, 234, 0.35);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ===================== MOBILE ===================== */
+    @media (max-width: 767px) {
+      nav {
+        padding: 0 24px;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+
+      .nav-links li:not(:last-child) {
+        display: none;
+      }
+
+      .join-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .left-col {
+        padding: 48px 24px;
+        order: 1;
+      }
+
+      .right-col {
+        padding: 24px 16px 56px;
+        order: 2;
+      }
+
+      .form-card {
+        margin: 0 0;
+        padding: 40px 28px;
+      }
+
+      .field-row {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        padding: 48px 24px 32px;
+      }
+
+      .footer-links {
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <nav>
+    <a href="index.html" class="nav-logo">ulo</a>
+    <ul class="nav-links">
+      <li><a href="our-story.html">Our Story</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="join.html" class="nav-cta">Join</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===================== MAIN SECTION ===================== -->
+  <main class="join-main">
+    <div class="join-layout">
+
+      <!-- LEFT COLUMN -->
+      <div class="left-col">
+
+        <span class="eyebrow reveal">Washington D.C. &middot; May 2025</span>
+
+        <h1 class="headline reveal" style="transition-delay: 0.1s;">Find your home in her.</h1>
+
+        <p class="subhead reveal" style="transition-delay: 0.2s;">
+          We&rsquo;re launching Ulo city by city, starting in Washington D.C. Join the waitlist and be among the first women in your city to get access.
+        </p>
+
+        <ul class="bullets reveal" style="transition-delay: 0.3s;">
+          <li>Early access pricing</li>
+          <li>Priority event invitations</li>
+          <li>Founding member status</li>
+        </ul>
+
+        <blockquote class="left-quote reveal" style="transition-delay: 0.4s;">
+          &ldquo;The right introduction at the right moment can change everything.&rdquo;
+        </blockquote>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="right-col">
+        <div class="form-card reveal" style="transition-delay: 0.2s;">
+
+          <!-- FORM CONTENT -->
+          <div id="form-content">
+            <h2 class="form-heading">Join the D.C. Waitlist</h2>
+            <p class="form-subtext">Be among the first women in Washington D.C.</p>
+
+            <form class="form-body" id="waitlist-form" novalidate>
+
+              <!-- Row 1: First + Last Name -->
+              <div class="field-row">
+                <div class="field-group">
+                  <label class="field-label" for="first-name">First Name</label>
+                  <input type="text" id="first-name" name="first_name" placeholder="Jane" autocomplete="given-name" />
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="last-name">Last Name</label>
+                  <input type="text" id="last-name" name="last_name" placeholder="Smith" autocomplete="family-name" />
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="field-group">
+                <label class="field-label" for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="jane@example.com" autocomplete="email" />
+              </div>
+
+              <!-- City -->
+              <div class="field-group">
+                <label class="field-label" for="city">Your City</label>
+                <div class="select-wrapper">
+                  <select id="city" name="city">
+                    <option value="dc" selected>Washington D.C.</option>
+                    <option disabled>── Coming Soon ──</option>
+                    <option value="ny">New York</option>
+                    <option value="atl">Atlanta</option>
+                    <option value="chi">Chicago</option>
+                    <option value="la">Los Angeles</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Life Stage -->
+              <div class="field-group">
+                <label class="field-label">Your Life Stage</label>
+                <span class="field-sublabel">Select all that apply</span>
+                <div class="checkbox-grid">
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="life_stage" value="new_in_city" />
+                    <span class="custom-checkbox">
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.5L3.8 6.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="checkbox-label">New in the City</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="life_stage" value="career_pivot" />
+                    <span class="custom-checkbox">
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.5L3.8 6.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="checkbox-label">Career Pivot</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="life_stage" value="executive" />
+                    <span class="custom-checkbox">
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.5L3.8 6.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="checkbox-label">Executive</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="life_stage" value="new_mom" />
+                    <span class="custom-checkbox">
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.5L3.8 6.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="checkbox-label">New Mom</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="life_stage" value="single_mom" />
+                    <span class="custom-checkbox">
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.5L3.8 6.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="checkbox-label">Single Mom</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="life_stage" value="newly_married" />
+                    <span class="custom-checkbox">
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.5L3.8 6.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="checkbox-label">Newly Married</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="life_stage" value="newly_single" />
+                    <span class="custom-checkbox">
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.5L3.8 6.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="checkbox-label">Newly Single</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="life_stage" value="empty_nester" />
+                    <span class="custom-checkbox">
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.5L3.8 6.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="checkbox-label">Empty Nester</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="life_stage" value="returning_pro" />
+                    <span class="custom-checkbox">
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.5L3.8 6.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="checkbox-label">Returning Pro</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="life_stage" value="founder" />
+                    <span class="custom-checkbox">
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.5L3.8 6.5L9 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="checkbox-label">Founder</span>
+                  </label>
+
+                </div>
+              </div>
+
+              <!-- Submit -->
+              <button type="submit" class="submit-btn">Request Access &rarr;</button>
+
+            </form>
+
+            <p class="below-btn-text">We&rsquo;ll reach out when your city opens. No spam, ever.</p>
+          </div>
+
+          <!-- SUCCESS STATE -->
+          <div class="success-state" id="success-state">
+            <svg class="success-checkmark" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="36" cy="36" r="34" stroke="#C17B5E" stroke-width="2"/>
+              <path d="M20 36L30.5 47L52 25" stroke="#C17B5E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="success-title">You&rsquo;re on the list.</p>
+            <p class="success-message">We&rsquo;ll be in touch when Washington D.C. opens. Check your inbox.</p>
+            <a href="index.html" class="back-link">&larr; Back to Home</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <span class="footer-logo">ulo</span>
+    <p class="footer-tagline">Where women find their people.</p>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="our-story.html">Our Story</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="join.html">Join</a></li>
+    </ul>
+    <div class="footer-divider"></div>
+    <p class="footer-copyright">
+      &copy; 2025 Ulo. All rights reserved.<br />meetulo.com
+    </p>
+  </footer>
+
+  <!-- ===================== JAVASCRIPT ===================== -->
+  <script>
+    // ----- Reveal animations via IntersectionObserver -----
+    const revealEls = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    revealEls.forEach((el) => observer.observe(el));
+
+    // ----- Form submit → success state -----
+    const form = document.getElementById('waitlist-form');
+    const formContent = document.getElementById('form-content');
+    const successState = document.getElementById('success-state');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      formContent.style.display = 'none';
+      successState.classList.add('active');
+    });
+  </script>
+
+</body>
+</html>

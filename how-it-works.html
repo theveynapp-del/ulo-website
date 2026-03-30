@@ -1,0 +1,2318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works — Ulo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Cormorant+SC:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F2EA;
+    --ink: #1A1410;
+    --blush: #C17B5E;
+    --gold: #8B3A8F;
+    --warm-mid: #6B5C4E;
+    --light-cream: #FBF8F3;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 72px;
+    background: var(--cream);
+    border-bottom: 1px solid rgba(26,20,16,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    z-index: 1000;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Cormorant SC', serif;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 400;
+  }
+
+  .nav-links a:hover { color: var(--blush); }
+
+  .nav-join {
+    background: var(--blush) !important;
+    color: white !important;
+    padding: 10px 24px;
+    border-radius: 2px;
+  }
+
+  .nav-join:hover { opacity: 0.9; }
+
+  /* ===== REVEAL ANIMATIONS ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: var(--ink);
+    padding: 180px 60px 120px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-family: 'Cormorant SC', serif;
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(48px, 6vw, 88px);
+    color: var(--cream);
+    line-height: 1.0;
+    margin-top: 20px;
+    font-weight: 400;
+  }
+
+  .hero-subhead {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    color: rgba(247,242,234,0.65);
+    margin-top: 24px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  /* ===== STEPS SECTION ===== */
+  .steps-section {
+    background: var(--cream);
+    padding: 120px 60px;
+  }
+
+  .steps-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 48px;
+    color: var(--ink);
+    margin-top: 16px;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  .steps-timeline {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .step-item {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    padding: 40px 0;
+    border-bottom: 1px solid rgba(26,20,16,0.1);
+  }
+
+  .step-item:last-child { border-bottom: none; }
+
+  .step-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    font-weight: 400;
+    color: var(--ink);
+    opacity: 0.08;
+    line-height: 1;
+    min-width: 120px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .step-content { flex: 1; padding-top: 8px; }
+
+  .step-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 32px;
+    color: var(--ink);
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+
+  .step-body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: var(--warm-mid);
+    line-height: 1.8;
+  }
+
+  /* ===== PROTOTYPE SECTION ===== */
+  .prototype-section {
+    background: #0D0D0F;
+    padding: 120px 60px;
+    text-align: center;
+  }
+
+  .prototype-section .eyebrow { margin-bottom: 0; }
+
+  .prototype-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 56px;
+    color: var(--cream);
+    margin-top: 20px;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  .prototype-subhead {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    color: rgba(247,242,234,0.65);
+    max-width: 520px;
+    margin: 20px auto 60px;
+    line-height: 1.6;
+  }
+
+  .phone-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .phone-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse at center, rgba(193,123,94,0.12) 0%, rgba(139,58,143,0.08) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .phone-caption {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(247,242,234,0.4);
+    text-align: center;
+    margin-top: 24px;
+  }
+
+  /* ===== PHONE FRAME ===== */
+  .phone-frame {
+    width: 375px;
+    height: 750px;
+    border-radius: 44px;
+    background: #0D0D0F;
+    border: 2px solid rgba(255,255,255,0.12);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.06);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+  }
+
+  /* STATUS BAR */
+  .app-status-bar {
+    height: 44px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0D0D0F;
+    flex-shrink: 0;
+  }
+
+  .app-status-time {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #F5F0E8;
+  }
+
+  .app-status-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.8;
+  }
+
+  .app-signal {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+  }
+
+  .app-signal-bar {
+    background: #F5F0E8;
+    width: 3px;
+    border-radius: 1px;
+  }
+
+  .app-wifi {
+    width: 16px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .app-battery {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+  }
+
+  .app-battery-body {
+    width: 22px;
+    height: 11px;
+    border: 1.5px solid #F5F0E8;
+    border-radius: 2px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1.5px;
+  }
+
+  .app-battery-fill {
+    background: #F5F0E8;
+    height: 100%;
+    width: 75%;
+    border-radius: 1px;
+  }
+
+  .app-battery-tip {
+    width: 2px;
+    height: 5px;
+    background: #F5F0E8;
+    border-radius: 0 1px 1px 0;
+    opacity: 0.5;
+  }
+
+  /* SCREEN AREA */
+  .app-screen-area {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .app-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    background: #0D0D0F;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-screen.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  /* BOTTOM NAV */
+  .app-bottom-nav {
+    height: 68px;
+    background: #0D0D0F;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-shrink: 0;
+    padding: 0 16px;
+  }
+
+  .app-nav-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 4px 12px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.35);
+    transition: color 0.2s;
+  }
+
+  .app-nav-tab.active { color: #C084FC; }
+
+  .app-nav-tab svg { width: 22px; height: 22px; }
+
+  .app-nav-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+  }
+
+  /* COMMON APP ELEMENTS */
+  .app-header {
+    background: #0D0D0F;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    flex-shrink: 0;
+  }
+
+  .app-header-back {
+    font-size: 20px;
+    color: #F5F0E8;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .app-header-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #F5F0E8;
+  }
+
+  .app-header-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(245,240,232,0.4);
+    margin-top: 2px;
+  }
+
+  .app-scrollable {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .app-scrollable::-webkit-scrollbar { display: none; }
+
+  .app-tag {
+    display: inline-block;
+    background: rgba(192,132,252,0.15);
+    color: #C084FC;
+    border: 1px solid rgba(192,132,252,0.3);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .app-gradient-btn {
+    background: linear-gradient(135deg, #C084FC, #F472B6);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+  }
+
+  .app-avatar {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  /* TOAST */
+  .app-toast {
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    right: 20px;
+    background: rgba(192,132,252,0.9);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 16px;
+    border-radius: 10px;
+    z-index: 100;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+  }
+
+  .app-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== SCREEN 1: DISCOVER ===== */
+  #screen-discover .app-disc-header {
+    background: #0D0D0F;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .app-disc-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: #F5F0E8;
+    font-weight: 400;
+  }
+
+  .app-disc-avatar {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #C084FC, #F472B6);
+    font-size: 13px;
+  }
+
+  .app-filter-section {
+    padding: 0 20px 16px;
+    flex-shrink: 0;
+  }
+
+  .app-filter-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: rgba(245,240,232,0.4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .app-chips-row {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .app-chips-row::-webkit-scrollbar { display: none; }
+
+  .app-chips-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .app-chip {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-weight: 400;
+  }
+
+  .app-chip.active {
+    background: linear-gradient(135deg, #C084FC, #F472B6);
+    border-color: transparent;
+    color: white;
+  }
+
+  .app-city-soon {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: rgba(245,240,232,0.4);
+  }
+
+  .app-profile-cards {
+    padding: 0 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .app-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .app-card:hover { background: rgba(255,255,255,0.08); }
+
+  .app-card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .app-card-info { flex: 1; min-width: 0; }
+
+  .app-card-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #F5F0E8;
+  }
+
+  .app-card-role {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(245,240,232,0.5);
+    margin-top: 4px;
+  }
+
+  .app-card-bio {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: rgba(245,240,232,0.6);
+    margin-top: 10px;
+    line-height: 1.6;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .app-connect-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  /* ===== SCREEN 2: PROFILE VIEW ===== */
+  #screen-profile .app-profile-content {
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .app-profile-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #F5F0E8;
+    margin-top: 16px;
+  }
+
+  .app-profile-role {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: rgba(245,240,232,0.6);
+    margin-top: 4px;
+  }
+
+  .app-section-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: rgba(245,240,232,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 24px;
+    align-self: flex-start;
+  }
+
+  .app-profile-bio {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: rgba(245,240,232,0.7);
+    line-height: 1.7;
+    margin-top: 8px;
+    text-align: left;
+    align-self: flex-start;
+  }
+
+  .app-circles-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    align-self: flex-start;
+  }
+
+  .app-circle-pill {
+    background: rgba(192,132,252,0.12);
+    border: 1px solid rgba(192,132,252,0.2);
+    color: #C084FC;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  .app-event-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: left;
+    align-self: flex-start;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .app-event-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #F5F0E8;
+    font-weight: 500;
+  }
+
+  .app-event-detail {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(245,240,232,0.5);
+    margin-top: 4px;
+  }
+
+  .app-primary-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 24px;
+    background: linear-gradient(135deg, #C084FC, #F472B6);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .app-secondary-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+  }
+
+  /* ===== SCREEN 3: CONNECTION REQUEST ===== */
+  .app-connect-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 20px 16px;
+  }
+
+  .app-connect-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #F5F0E8;
+    margin-top: 10px;
+  }
+
+  .app-connect-role {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(245,240,232,0.5);
+    margin-top: 2px;
+  }
+
+  .app-connect-form {
+    padding: 0 20px 20px;
+  }
+
+  .app-form-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: rgba(245,240,232,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .app-textarea {
+    width: 100%;
+    height: 120px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #F5F0E8;
+    resize: none;
+    outline: none;
+  }
+
+  .app-textarea:focus { border-color: rgba(192,132,252,0.4); }
+
+  .app-select {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #F5F0E8;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    margin-top: 16px;
+  }
+
+  .app-select option {
+    background: #1a1a1a;
+    color: #F5F0E8;
+  }
+
+  .app-send-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 24px;
+    background: linear-gradient(135deg, #C084FC, #F472B6);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* SUCCESS STATE */
+  .app-success-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #0D0D0F;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 50;
+  }
+
+  .app-success-overlay.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .app-check-circle {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #C084FC;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .app-success-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #F5F0E8;
+    margin-top: 16px;
+  }
+
+  .app-success-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: rgba(245,240,232,0.5);
+    margin-top: 8px;
+  }
+
+  /* ===== SCREEN 4: CIRCLES ===== */
+  .app-circle-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .app-circle-card:hover { background: rgba(255,255,255,0.08); }
+
+  .app-circle-card-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #F5F0E8;
+  }
+
+  .app-circle-card-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: rgba(245,240,232,0.55);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .app-circle-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 14px;
+  }
+
+  .app-circle-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .app-member-count {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(245,240,232,0.4);
+  }
+
+  .app-activity {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: rgba(245,240,232,0.4);
+  }
+
+  .app-dot-active {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(34,197,94,0.8);
+  }
+
+  .app-dot-neutral {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+  }
+
+  .app-join-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #C084FC, #F472B6);
+    color: white;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .app-join-btn.joined {
+    background: transparent;
+    border: 1px solid rgba(192,132,252,0.3);
+    color: #C084FC;
+  }
+
+  /* ===== SCREEN 5: CIRCLE DETAIL ===== */
+  .app-post {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .app-post:last-child { border-bottom: none; }
+
+  .app-post-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .app-post-author {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #F5F0E8;
+  }
+
+  .app-post-time {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: rgba(245,240,232,0.35);
+    margin-left: auto;
+  }
+
+  .app-post-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: rgba(245,240,232,0.75);
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+
+  .app-post-replies {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(245,240,232,0.4);
+    margin-top: 10px;
+  }
+
+  .app-post-btn {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 20px;
+    background: #0D0D0F;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .app-post-btn button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    background: linear-gradient(135deg, #C084FC, #F472B6);
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* ===== SCREEN 6: EVENTS ===== */
+  .app-event-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .app-event-tag {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: linear-gradient(135deg, #C084FC, #F472B6);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .app-event-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #F5F0E8;
+    padding-right: 80px;
+  }
+
+  .app-event-loc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(245,240,232,0.5);
+    margin-top: 4px;
+  }
+
+  .app-event-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: rgba(245,240,232,0.6);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .app-rsvp-btn {
+    background: linear-gradient(135deg, #C084FC, #F472B6);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 14px;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .app-rsvp-btn.going {
+    background: transparent;
+    border: 1px solid rgba(192,132,252,0.3);
+    color: #C084FC;
+  }
+
+  /* ===== MEMBERSHIP SECTION ===== */
+  .membership-section {
+    background: var(--ink);
+    padding: 120px 60px;
+    text-align: center;
+  }
+
+  .membership-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 48px;
+    color: var(--cream);
+    margin-top: 16px;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+
+  .membership-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 36px;
+    color: var(--blush);
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+
+  .membership-subtext {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: rgba(247,242,234,0.5);
+    margin-bottom: 48px;
+  }
+
+  .membership-benefits {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+
+  .benefit-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .benefit-icon {
+    font-size: 28px;
+    line-height: 1;
+    color: var(--cream);
+    opacity: 0.8;
+  }
+
+  .benefit-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: rgba(247,242,234,0.8);
+  }
+
+  .membership-cta {
+    display: inline-block;
+    background: var(--blush);
+    color: white;
+    font-family: 'Cormorant SC', serif;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    padding: 16px 48px;
+    border-radius: 2px;
+    text-decoration: none;
+    margin-top: 0;
+    transition: opacity 0.2s;
+  }
+
+  .membership-cta:hover { opacity: 0.9; }
+
+  /* ===== FAQ SECTION ===== */
+  .faq-section {
+    background: var(--cream);
+    padding: 120px 60px;
+  }
+
+  .faq-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .faq-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 48px;
+    color: var(--ink);
+    margin-top: 16px;
+    margin-bottom: 60px;
+    font-weight: 400;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(26,20,16,0.12);
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+    font-weight: 400;
+    gap: 16px;
+  }
+
+  .faq-icon {
+    font-size: 20px;
+    font-style: normal;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    line-height: 1;
+  }
+
+  .faq-item.open .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .faq-answer-inner {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--warm-mid);
+    line-height: 1.8;
+    padding-bottom: 24px;
+  }
+
+  .faq-item.open .faq-answer {
+    max-height: 300px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--ink);
+    padding: 80px 60px 48px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 36px;
+    color: var(--cream);
+    font-weight: 400;
+    display: block;
+  }
+
+  .footer-tagline {
+    font-family: 'Cormorant SC', serif;
+    font-size: 13px;
+    color: rgba(247,242,234,0.4);
+    margin-top: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    list-style: none;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-family: 'Cormorant SC', serif;
+    font-size: 13px;
+    color: rgba(247,242,234,0.5);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--cream); }
+
+  .footer-copy {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(247,242,234,0.25);
+    margin-top: 40px;
+  }
+
+  /* ===== MOBILE RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .nav-links li:not(:last-child) { display: none; }
+
+    .hero { padding: 140px 24px 80px; }
+    .steps-section { padding: 80px 24px; }
+    .prototype-section { padding: 80px 20px; }
+    .membership-section { padding: 80px 24px; }
+    .faq-section { padding: 80px 24px; }
+    footer { padding: 60px 24px 40px; }
+
+    .phone-frame { transform: scale(0.85); transform-origin: top center; }
+    .phone-wrapper { padding-bottom: 40px; }
+
+    .membership-benefits { gap: 32px; }
+    .membership-benefits .benefit-item { width: 100%; }
+
+    .step-item { flex-direction: column; gap: 8px; }
+    .step-number { font-size: 60px; min-width: auto; }
+  }
+
+  @media (max-width: 480px) {
+    .phone-frame { transform: scale(0.75); transform-origin: top center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">ulo</a>
+  <ul class="nav-links">
+    <li><a href="our-story.html">Our Story</a></li>
+    <li><a href="how-it-works.html">How It Works</a></li>
+    <li><a href="join.html" class="nav-join">Join</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="eyebrow reveal">The Experience</p>
+  <h1 class="hero-headline reveal">Built for where you actually are.</h1>
+  <p class="hero-subhead reveal">Ulo isn't another networking app. It's a membership — curated, context-aware, and designed for real life.</p>
+</section>
+
+<!-- STEP-BY-STEP -->
+<section class="steps-section">
+  <div class="steps-header">
+    <p class="eyebrow reveal">The Process</p>
+    <h2 class="section-heading reveal">Four steps to finding your people.</h2>
+  </div>
+  <div class="steps-timeline">
+    <div class="step-item reveal" style="transition-delay: 0.1s">
+      <div class="step-number">01</div>
+      <div class="step-content">
+        <h3 class="step-name">Create your profile</h3>
+        <p class="step-body">Tell us your city, career chapter, and life stage. No scrolling a feed. No cold connections.</p>
+      </div>
+    </div>
+    <div class="step-item reveal" style="transition-delay: 0.2s">
+      <div class="step-number">02</div>
+      <div class="step-content">
+        <h3 class="step-name">Get matched by context</h3>
+        <p class="step-body">We surface women in your city who share your chapter. Every connection has a reason.</p>
+      </div>
+    </div>
+    <div class="step-item reveal" style="transition-delay: 0.3s">
+      <div class="step-number">03</div>
+      <div class="step-content">
+        <h3 class="step-name">Join your Circles</h3>
+        <p class="step-body">Small, ongoing digital communities organized by life stage and interest. Ask real questions. Get honest answers.</p>
+      </div>
+    </div>
+    <div class="step-item reveal" style="transition-delay: 0.4s">
+      <div class="step-number">04</div>
+      <div class="step-content">
+        <h3 class="step-name">Show up IRL</h3>
+        <p class="step-body">Curated dinners, workshops, and events designed for your stage. Real rooms, real women, real conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROTOTYPE SECTION -->
+<section class="prototype-section">
+  <p class="eyebrow reveal">Live Preview</p>
+  <h2 class="prototype-heading reveal">See what it feels like to belong.</h2>
+  <p class="prototype-subhead reveal">Explore the Ulo experience — browse women in your city, join Circles, and find your next event.</p>
+
+  <div class="phone-wrapper">
+    <div class="phone-glow"></div>
+
+    <!-- PHONE FRAME -->
+    <div class="phone-frame">
+
+      <!-- STATUS BAR -->
+      <div class="app-status-bar">
+        <span class="app-status-time">9:41</span>
+        <div class="app-status-icons">
+          <div class="app-signal">
+            <div class="app-signal-bar" style="height:5px;"></div>
+            <div class="app-signal-bar" style="height:8px;"></div>
+            <div class="app-signal-bar" style="height:11px;"></div>
+            <div class="app-signal-bar" style="height:14px;"></div>
+          </div>
+          <svg class="app-wifi" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 10.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="#F5F0E8"/>
+            <path d="M5.3 7.8A3.7 3.7 0 0 1 8 6.5a3.7 3.7 0 0 1 2.7 1.3" stroke="#F5F0E8" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <path d="M2.7 5.2A6.6 6.6 0 0 1 8 3a6.6 6.6 0 0 1 5.3 2.2" stroke="#F5F0E8" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          </svg>
+          <div class="app-battery">
+            <div class="app-battery-body">
+              <div class="app-battery-fill"></div>
+            </div>
+            <div class="app-battery-tip"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN AREA -->
+      <div class="app-screen-area">
+        <!-- TOAST (shared) -->
+        <div class="app-toast" id="app-toast"></div>
+
+        <!-- SCREEN 1: DISCOVER -->
+        <div class="app-screen active" id="screen-discover">
+          <!-- Header -->
+          <div class="app-disc-header">
+            <span class="app-disc-logo">ulo</span>
+            <div class="app-avatar app-disc-avatar" style="font-size:13px;">OI</div>
+          </div>
+
+          <div class="app-scrollable" id="discover-scroll">
+            <!-- City filter -->
+            <div class="app-filter-section">
+              <span class="app-filter-label">City</span>
+              <div class="app-chips-row" id="city-chips">
+                <div class="app-chip active" data-city="dc">Washington D.C.</div>
+                <div class="app-chip" data-city="ny">New York</div>
+                <div class="app-chip" data-city="atl">Atlanta</div>
+              </div>
+
+              <span class="app-filter-label" style="margin-top:12px;">Life Stage</span>
+              <div class="app-chips-wrap" id="stage-chips">
+                <div class="app-chip active" data-stage="all">All</div>
+                <div class="app-chip" data-stage="Executive">Executive</div>
+                <div class="app-chip" data-stage="New Mom">New Mom</div>
+                <div class="app-chip" data-stage="Newly Single">Newly Single</div>
+                <div class="app-chip" data-stage="Returning Pro">Returning Pro</div>
+                <div class="app-chip" data-stage="Founder">Founder</div>
+                <div class="app-chip" data-stage="Empty Nester">Empty Nester</div>
+                <div class="app-chip" data-stage="New to the Area">New to the Area</div>
+              </div>
+            </div>
+
+            <!-- City not available message -->
+            <div class="app-city-soon" id="city-soon-msg"></div>
+
+            <!-- Profile Cards -->
+            <div class="app-profile-cards" id="profile-cards">
+
+              <div class="app-card" data-stage="Newly Single" data-person="0">
+                <div class="app-card-top">
+                  <div class="app-avatar" style="width:44px;height:44px;background:linear-gradient(135deg,#7C3AED,#C084FC);font-size:13px;">JE</div>
+                  <div class="app-card-info">
+                    <div class="app-card-name">Jordan Ellis</div>
+                    <div class="app-card-role">Senior Policy Advisor · U.S. Senate</div>
+                  </div>
+                  <span class="app-tag">Newly Single</span>
+                </div>
+                <div class="app-card-bio">Just came out of a 6-year relationship. The career is solid. Everything else is a work in progress. Looking for women who've rebuilt and come out better.</div>
+                <button class="app-connect-btn app-gradient-btn">Connect →</button>
+              </div>
+
+              <div class="app-card" data-stage="New Mom" data-person="1">
+                <div class="app-card-top">
+                  <div class="app-avatar" style="width:44px;height:44px;background:linear-gradient(135deg,#F472B6,#EC4899);font-size:13px;">SR</div>
+                  <div class="app-card-info">
+                    <div class="app-card-name">Sofia Reyes</div>
+                    <div class="app-card-role">Director of Sales · Salesforce</div>
+                  </div>
+                  <span class="app-tag">New Mom</span>
+                </div>
+                <div class="app-card-bio">8 months in. Back at work full-time. Thriving is a strong word but I'm trying. Looking for women who get the math of this season.</div>
+                <button class="app-connect-btn app-gradient-btn">Connect →</button>
+              </div>
+
+              <div class="app-card" data-stage="Returning Pro" data-person="2">
+                <div class="app-card-top">
+                  <div class="app-avatar" style="width:44px;height:44px;background:linear-gradient(135deg,#34D399,#059669);font-size:13px;">RK</div>
+                  <div class="app-card-info">
+                    <div class="app-card-name">Rachel Kim</div>
+                    <div class="app-card-role">Senior Product Manager · Google</div>
+                  </div>
+                  <span class="app-tag">Returning Pro</span>
+                </div>
+                <div class="app-card-bio">Back after 18 months away. The market has changed. So have I. Still figuring out which version of me shows up to work now.</div>
+                <button class="app-connect-btn app-gradient-btn">Connect →</button>
+              </div>
+
+              <div class="app-card" data-stage="Executive" data-person="3">
+                <div class="app-card-top">
+                  <div class="app-avatar" style="width:44px;height:44px;background:linear-gradient(135deg,#F59E0B,#D97706);font-size:13px;">PN</div>
+                  <div class="app-card-info">
+                    <div class="app-card-name">Priya Nair</div>
+                    <div class="app-card-role">SVP of Engineering · AWS</div>
+                  </div>
+                  <span class="app-tag">Executive</span>
+                </div>
+                <div class="app-card-bio">15 years to get here. The work is the easy part now. Finding women who operate at this level and actually talk honestly — that's harder.</div>
+                <button class="app-connect-btn app-gradient-btn">Connect →</button>
+              </div>
+
+              <div class="app-card" data-stage="Founder" data-person="4">
+                <div class="app-card-top">
+                  <div class="app-avatar" style="width:44px;height:44px;background:linear-gradient(135deg,#C084FC,#A855F7);font-size:13px;">AO</div>
+                  <div class="app-card-info">
+                    <div class="app-card-name">Amara Osei</div>
+                    <div class="app-card-role">Founder · health-tech startup</div>
+                  </div>
+                  <span class="app-tag">Founder</span>
+                </div>
+                <div class="app-card-bio">Two years in, first round closed. Building in public and tired of pretending it's not hard. Looking for my people.</div>
+                <button class="app-connect-btn app-gradient-btn">Connect →</button>
+              </div>
+
+              <div class="app-card" data-stage="New to the Area" data-person="5">
+                <div class="app-card-top">
+                  <div class="app-avatar" style="width:44px;height:44px;background:linear-gradient(135deg,#38BDF8,#0EA5E9);font-size:13px;">MC</div>
+                  <div class="app-card-info">
+                    <div class="app-card-name">Maya Chen</div>
+                    <div class="app-card-role">Deputy Chief of Staff · DoD</div>
+                  </div>
+                  <span class="app-tag">New to the Area</span>
+                </div>
+                <div class="app-card-bio">Moved to D.C. six months ago from San Francisco. The work landed. Everything outside of it is still being built.</div>
+                <button class="app-connect-btn app-gradient-btn">Connect →</button>
+              </div>
+
+              <div class="app-card" data-stage="Empty Nester" data-person="6">
+                <div class="app-card-top">
+                  <div class="app-avatar" style="width:44px;height:44px;background:linear-gradient(135deg,#FB923C,#EA580C);font-size:13px;">DF</div>
+                  <div class="app-card-info">
+                    <div class="app-card-name">Diane Foster</div>
+                    <div class="app-card-role">Former VP · Booz Allen Hamilton</div>
+                  </div>
+                  <span class="app-tag">Empty Nester</span>
+                </div>
+                <div class="app-card-bio">Last kid left for college in August. Rediscovering who I am when I'm not someone's mom first. It's stranger and better than I expected.</div>
+                <button class="app-connect-btn app-gradient-btn">Connect →</button>
+              </div>
+
+            </div><!-- /profile-cards -->
+          </div><!-- /scrollable -->
+        </div><!-- /screen-discover -->
+
+        <!-- SCREEN 2: PROFILE VIEW -->
+        <div class="app-screen" id="screen-profile">
+          <div class="app-header">
+            <button class="app-header-back" id="profile-back">←</button>
+            <div style="flex:1;text-align:center;">
+              <div class="app-header-title" id="profile-header-name"></div>
+            </div>
+            <div style="width:32px;"></div>
+          </div>
+          <div class="app-scrollable">
+            <div class="app-profile-content">
+              <div class="app-avatar" id="profile-view-avatar" style="width:80px;height:80px;font-size:22px;"></div>
+              <div class="app-profile-name" id="profile-view-name"></div>
+              <div class="app-profile-role" id="profile-view-role"></div>
+              <span class="app-tag" id="profile-view-tag" style="margin-top:12px;"></span>
+
+              <div class="app-section-label">About</div>
+              <p class="app-profile-bio" id="profile-view-bio"></p>
+
+              <div class="app-section-label">Shared Circles</div>
+              <div class="app-circles-row">
+                <span class="app-circle-pill" id="profile-circle-1"></span>
+                <span class="app-circle-pill" id="profile-circle-2"></span>
+              </div>
+
+              <div class="app-section-label">Upcoming Events</div>
+              <div class="app-event-card">
+                <div class="app-event-name" id="profile-event-name"></div>
+                <div class="app-event-detail" id="profile-event-detail"></div>
+              </div>
+
+              <button class="app-primary-btn" id="send-request-btn">Send Connection Request</button>
+              <button class="app-secondary-btn">View Shared Events</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCREEN 3: CONNECTION REQUEST -->
+        <div class="app-screen" id="screen-connect">
+          <div class="app-header">
+            <button class="app-header-back" id="connect-back">←</button>
+            <div style="flex:1;text-align:center;">
+              <div class="app-header-title" id="connect-header-name"></div>
+            </div>
+            <div style="width:32px;"></div>
+          </div>
+          <div class="app-scrollable" style="position:relative;">
+            <div class="app-connect-top">
+              <div class="app-avatar" id="connect-avatar" style="width:56px;height:56px;font-size:16px;"></div>
+              <div class="app-connect-name" id="connect-name"></div>
+              <div class="app-connect-role" id="connect-role"></div>
+            </div>
+            <div class="app-connect-form">
+              <label class="app-form-label">Your message</label>
+              <textarea class="app-textarea" id="connect-message"></textarea>
+
+              <label class="app-form-label" style="margin-top:16px;">Connecting as:</label>
+              <select class="app-select" id="connect-stage">
+                <option>Executive</option>
+                <option>New Mom</option>
+                <option>Newly Single</option>
+                <option>Returning Pro</option>
+                <option>Founder</option>
+                <option>Empty Nester</option>
+                <option>New to the Area</option>
+                <option>Career Changer</option>
+                <option>Student</option>
+                <option>Recent Grad</option>
+              </select>
+
+              <button class="app-send-btn" id="send-btn">Send Request</button>
+            </div>
+
+            <!-- Success overlay -->
+            <div class="app-success-overlay" id="success-overlay">
+              <div class="app-check-circle">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <path d="M6 14l5.5 5.5L22 9" stroke="#C084FC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="app-success-title">Connection request sent!</div>
+              <div class="app-success-sub">We'll let you know when she accepts.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCREEN 4: CIRCLES -->
+        <div class="app-screen" id="screen-circles">
+          <div class="app-header">
+            <div>
+              <div class="app-header-title">Circles</div>
+              <div class="app-header-subtitle">Communities for every chapter</div>
+            </div>
+          </div>
+          <div class="app-scrollable" style="padding:16px 20px;">
+
+            <div class="app-circle-card" data-circle="0">
+              <div class="app-circle-card-name">Executive Circle D.C.</div>
+              <div class="app-circle-card-desc">Senior leaders. Honest about what it actually costs.</div>
+              <div class="app-circle-card-bottom">
+                <div class="app-circle-meta">
+                  <span class="app-member-count">47 members</span>
+                  <span class="app-activity"><span class="app-dot-active"></span>Active now</span>
+                </div>
+                <button class="app-join-btn joined" data-circle-idx="0">Joined ✓</button>
+              </div>
+            </div>
+
+            <div class="app-circle-card" data-circle="1">
+              <div class="app-circle-card-name">New Moms D.C.</div>
+              <div class="app-circle-card-desc">No advice. No judgment. Just the truth about this season.</div>
+              <div class="app-circle-card-bottom">
+                <div class="app-circle-meta">
+                  <span class="app-member-count">83 members</span>
+                  <span class="app-activity"><span class="app-dot-neutral"></span>12 new posts</span>
+                </div>
+                <button class="app-join-btn" data-circle-idx="1">Join</button>
+              </div>
+            </div>
+
+            <div class="app-circle-card" data-circle="2">
+              <div class="app-circle-card-name">Newly Single</div>
+              <div class="app-circle-card-desc">Rebuilding on your own terms.</div>
+              <div class="app-circle-card-bottom">
+                <div class="app-circle-meta">
+                  <span class="app-member-count">31 members</span>
+                  <span class="app-activity"><span class="app-dot-neutral"></span>5 new posts</span>
+                </div>
+                <button class="app-join-btn" data-circle-idx="2">Join</button>
+              </div>
+            </div>
+
+            <div class="app-circle-card" data-circle="3">
+              <div class="app-circle-card-name">Founders &amp; Builders</div>
+              <div class="app-circle-card-desc">Early-stage. In the hard part. Not pretending otherwise.</div>
+              <div class="app-circle-card-bottom">
+                <div class="app-circle-meta">
+                  <span class="app-member-count">22 members</span>
+                  <span class="app-activity"><span class="app-dot-active"></span>Active now</span>
+                </div>
+                <button class="app-join-btn" data-circle-idx="3">Join</button>
+              </div>
+            </div>
+
+            <div class="app-circle-card" data-circle="4">
+              <div class="app-circle-card-name">Empty Nesters D.C.</div>
+              <div class="app-circle-card-desc">The chapter nobody talks about. We're talking about it.</div>
+              <div class="app-circle-card-bottom">
+                <div class="app-circle-meta">
+                  <span class="app-member-count">19 members</span>
+                  <span class="app-activity"><span class="app-dot-neutral"></span>3 new posts</span>
+                </div>
+                <button class="app-join-btn" data-circle-idx="4">Join</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SCREEN 5: CIRCLE DETAIL -->
+        <div class="app-screen" id="screen-circle-detail">
+          <div class="app-header">
+            <button class="app-header-back" id="circle-back">←</button>
+            <div style="flex:1;text-align:center;">
+              <div class="app-header-title" id="circle-detail-name"></div>
+              <div class="app-header-subtitle" id="circle-detail-count" style="font-size:11px;"></div>
+            </div>
+            <div style="width:32px;"></div>
+          </div>
+          <div class="app-scrollable" style="padding:0 20px;flex:1;">
+            <div id="circle-posts">
+              <div class="app-post">
+                <div class="app-post-top">
+                  <div class="app-avatar" style="width:32px;height:32px;background:linear-gradient(135deg,#F59E0B,#D97706);font-size:10px;">PN</div>
+                  <span class="app-post-author">Priya Nair</span>
+                  <span class="app-post-time">2h ago</span>
+                </div>
+                <p class="app-post-text">Has anyone navigated asking for a raise after coming back from leave? The timing feels impossible.</p>
+                <div class="app-post-replies">💬 8 replies</div>
+              </div>
+              <div class="app-post">
+                <div class="app-post-top">
+                  <div class="app-avatar" style="width:32px;height:32px;background:linear-gradient(135deg,#38BDF8,#0EA5E9);font-size:10px;">MC</div>
+                  <span class="app-post-author">Maya Chen</span>
+                  <span class="app-post-time">5h ago</span>
+                </div>
+                <p class="app-post-text">Genuine question: how long did it take you to feel like you actually knew people here? Asking for a friend (me).</p>
+                <div class="app-post-replies">💬 14 replies</div>
+              </div>
+              <div class="app-post">
+                <div class="app-post-top">
+                  <div class="app-avatar" style="width:32px;height:32px;background:linear-gradient(135deg,#C084FC,#A855F7);font-size:10px;">AO</div>
+                  <span class="app-post-author">Amara Osei</span>
+                  <span class="app-post-time">1d ago</span>
+                </div>
+                <p class="app-post-text">Just closed our seed round. Couldn't have done it without the introductions made in this circle. This community is real.</p>
+                <div class="app-post-replies">💬 22 replies</div>
+              </div>
+              <div class="app-post">
+                <div class="app-post-top">
+                  <div class="app-avatar" style="width:32px;height:32px;background:linear-gradient(135deg,#7C3AED,#C084FC);font-size:10px;">JE</div>
+                  <span class="app-post-author">Jordan Ellis</span>
+                  <span class="app-post-time">2d ago</span>
+                </div>
+                <p class="app-post-text">Looking for a therapist who works with high-achieving women in transition. DMs open.</p>
+                <div class="app-post-replies">💬 6 replies</div>
+              </div>
+            </div>
+          </div>
+          <div class="app-post-btn">
+            <button id="post-to-circle-btn">+ Post to Circle</button>
+          </div>
+        </div>
+
+        <!-- SCREEN 6: EVENTS -->
+        <div class="app-screen" id="screen-events">
+          <div class="app-header">
+            <div>
+              <div class="app-header-title">Events</div>
+              <div class="app-header-subtitle">D.C. · November 2025</div>
+            </div>
+          </div>
+          <div class="app-scrollable" style="padding:16px 20px;">
+
+            <div class="app-event-item">
+              <span class="app-event-tag">Executive</span>
+              <div class="app-event-title">Ulo Dinner Series</div>
+              <div class="app-event-loc">📍 Georgetown · Thu Nov 14, 7pm</div>
+              <div class="app-event-desc">Executive women, honest conversation, good wine. Limited to 12.</div>
+              <button class="app-rsvp-btn" data-event="Ulo Dinner Series">RSVP →</button>
+            </div>
+
+            <div class="app-event-item">
+              <span class="app-event-tag">New Mom</span>
+              <div class="app-event-title">New Moms Night</div>
+              <div class="app-event-loc">📍 Capitol Hill · Wed Nov 20, 6:30pm</div>
+              <div class="app-event-desc">No advice. No judgment. Just dinner and the thing nobody says out loud.</div>
+              <button class="app-rsvp-btn" data-event="New Moms Night">RSVP →</button>
+            </div>
+
+            <div class="app-event-item">
+              <span class="app-event-tag">Newly Single</span>
+              <div class="app-event-title">Starting Over Supper</div>
+              <div class="app-event-loc">📍 Dupont Circle · Sat Nov 16, 7pm</div>
+              <div class="app-event-desc">For the newly single and newly free.</div>
+              <button class="app-rsvp-btn" data-event="Starting Over Supper">RSVP →</button>
+            </div>
+
+            <div class="app-event-item">
+              <span class="app-event-tag">Founder</span>
+              <div class="app-event-title">Founders Roundtable</div>
+              <div class="app-event-loc">📍 Navy Yard · Tue Nov 26, 5:30pm</div>
+              <div class="app-event-desc">Early-stage founders only. Pitch nothing. Learn everything.</div>
+              <button class="app-rsvp-btn" data-event="Founders Roundtable">RSVP →</button>
+            </div>
+
+            <div class="app-event-item">
+              <span class="app-event-tag">Empty Nester</span>
+              <div class="app-event-title">Next Chapter Brunch</div>
+              <div class="app-event-loc">📍 Chevy Chase · Sun Nov 24, 11am</div>
+              <div class="app-event-desc">For empty nesters finding what comes next.</div>
+              <button class="app-rsvp-btn" data-event="Next Chapter Brunch">RSVP →</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div><!-- /screen-area -->
+
+      <!-- BOTTOM NAV -->
+      <div class="app-bottom-nav">
+        <button class="app-nav-tab active" data-screen="discover">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="currentColor" stroke="none"/>
+          </svg>
+          <span class="app-nav-label">Discover</span>
+        </button>
+        <button class="app-nav-tab" data-screen="circles">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="12" cy="12" r="3"/>
+            <circle cx="12" cy="12" r="7"/>
+            <circle cx="12" cy="12" r="11"/>
+          </svg>
+          <span class="app-nav-label">Circles</span>
+        </button>
+        <button class="app-nav-tab" data-screen="events">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span class="app-nav-label">Events</span>
+        </button>
+        <button class="app-nav-tab" data-screen="profile-nav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span class="app-nav-label">Profile</span>
+        </button>
+      </div>
+
+    </div><!-- /phone-frame -->
+  </div><!-- /phone-wrapper -->
+
+  <p class="phone-caption">This is a preview. The full app launches May 2025 in Washington D.C.</p>
+</section>
+
+<!-- MEMBERSHIP SECTION -->
+<section class="membership-section">
+  <p class="eyebrow reveal">Membership</p>
+  <h2 class="membership-heading reveal">Membership that respects your time.</h2>
+  <p class="membership-price reveal">$15–25/month</p>
+  <p class="membership-subtext reveal">Early access pricing for founding members.</p>
+  <div class="membership-benefits reveal">
+    <div class="benefit-item">
+      <div class="benefit-icon">⊕</div>
+      <div class="benefit-label">Curated matches</div>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-icon">◎</div>
+      <div class="benefit-label">Circle access</div>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-icon">✦</div>
+      <div class="benefit-label">IRL event priority</div>
+    </div>
+  </div>
+  <a href="join.html" class="membership-cta reveal">Join the waitlist →</a>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <p class="eyebrow reveal">FAQ</p>
+    <h2 class="faq-heading reveal">Common questions.</h2>
+
+    <div class="faq-item reveal">
+      <div class="faq-question">
+        <span>Who is Ulo for?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p class="faq-answer-inner">Ulo is for women who are navigating a meaningful life stage — a new city, a new career chapter, a new relationship status, or a new identity. If you've ever walked into a room full of accomplished women and still felt alone, Ulo is for you.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question">
+        <span>How are matches made?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p class="faq-answer-inner">We match by city, life stage, and career chapter. Every connection has a reason. We don't use algorithms that optimize for engagement — we use context that optimizes for real relationship.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question">
+        <span>What cities are launching first?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p class="faq-answer-inner">Washington D.C. is our first city, launching May 2025. New York, Atlanta, Chicago, and Los Angeles are next. Join the waitlist to be notified when your city opens.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question">
+        <span>How is this different from LinkedIn or Bumble BFF?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p class="faq-answer-inner">LinkedIn is for career transactions. Bumble BFF is casual. Ulo is for the woman who needs a peer — someone who understands what it costs to be where she is. We're not a feed. We're a membership.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question">
+        <span>What's the time commitment?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p class="faq-answer-inner">Ulo is designed for women with full lives. A few messages a week, one Circles conversation, and one IRL event a month is the rhythm most members find meaningful. You control the pace.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">ulo</span>
+  <p class="footer-tagline">Where women find their people.</p>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="our-story.html">Our Story</a></li>
+    <li><a href="how-it-works.html">How It Works</a></li>
+    <li><a href="join.html">Join</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Ulo. All rights reserved. meetulo.com</p>
+</footer>
+
+<script>
+// ============================================================
+// PEOPLE DATA
+// ============================================================
+const people = [
+  {
+    initials: 'JE', name: 'Jordan Ellis', title: 'Senior Policy Advisor', company: 'U.S. Senate',
+    stage: 'Newly Single',
+    bio: 'Just came out of a 6-year relationship. The career is solid. Everything else is a work in progress. Looking for women who\'ve rebuilt and come out better.',
+    gradient: 'linear-gradient(135deg,#7C3AED,#C084FC)',
+    circles: ['Newly Single', 'Executive Circle D.C.'],
+    eventName: 'Starting Over Supper', eventDetail: 'Dupont Circle · Sat Nov 16, 7pm',
+    message: "Hi Jordan — I came across your profile and would love to connect. I'm also navigating a new chapter and think we'd have a lot to talk about."
+  },
+  {
+    initials: 'SR', name: 'Sofia Reyes', title: 'Director of Sales', company: 'Salesforce',
+    stage: 'New Mom',
+    bio: "8 months in. Back at work full-time. Thriving is a strong word but I'm trying. Looking for women who get the math of this season.",
+    gradient: 'linear-gradient(135deg,#F472B6,#EC4899)',
+    circles: ['New Moms D.C.', 'Executive Circle D.C.'],
+    eventName: 'New Moms Night', eventDetail: 'Capitol Hill · Wed Nov 20, 6:30pm',
+    message: "Hi Sofia — I came across your profile and would love to connect. I think we'd have a lot to share."
+  },
+  {
+    initials: 'RK', name: 'Rachel Kim', title: 'Senior Product Manager', company: 'Google',
+    stage: 'Returning Pro',
+    bio: "Back after 18 months away. The market has changed. So have I. Still figuring out which version of me shows up to work now.",
+    gradient: 'linear-gradient(135deg,#34D399,#059669)',
+    circles: ['Executive Circle D.C.', 'Founders & Builders'],
+    eventName: 'Ulo Dinner Series', eventDetail: 'Georgetown · Thu Nov 14, 7pm',
+    message: "Hi Rachel — I came across your profile and would love to connect. I think we'd have a lot to share."
+  },
+  {
+    initials: 'PN', name: 'Priya Nair', title: 'SVP of Engineering', company: 'AWS',
+    stage: 'Executive',
+    bio: "15 years to get here. The work is the easy part now. Finding women who operate at this level and actually talk honestly — that's harder.",
+    gradient: 'linear-gradient(135deg,#F59E0B,#D97706)',
+    circles: ['Executive Circle D.C.', 'Founders & Builders'],
+    eventName: 'Ulo Dinner Series', eventDetail: 'Georgetown · Thu Nov 14, 7pm',
+    message: "Hi Priya — I came across your profile and would love to connect. I think we'd have a lot to share."
+  },
+  {
+    initials: 'AO', name: 'Amara Osei', title: 'Founder', company: 'health-tech startup',
+    stage: 'Founder',
+    bio: "Two years in, first round closed. Building in public and tired of pretending it's not hard. Looking for my people.",
+    gradient: 'linear-gradient(135deg,#C084FC,#A855F7)',
+    circles: ['Founders & Builders', 'Executive Circle D.C.'],
+    eventName: 'Founders Roundtable', eventDetail: 'Navy Yard · Tue Nov 26, 5:30pm',
+    message: "Hi Amara — I came across your profile and would love to connect. I think we'd have a lot to share."
+  },
+  {
+    initials: 'MC', name: 'Maya Chen', title: 'Deputy Chief of Staff', company: 'DoD',
+    stage: 'New to the Area',
+    bio: "Moved to D.C. six months ago from San Francisco. The work landed. Everything outside of it is still being built.",
+    gradient: 'linear-gradient(135deg,#38BDF8,#0EA5E9)',
+    circles: ['Executive Circle D.C.', 'Newly Single'],
+    eventName: 'Ulo Dinner Series', eventDetail: 'Georgetown · Thu Nov 14, 7pm',
+    message: "Hi Maya — I came across your profile and would love to connect. I think we'd have a lot to share."
+  },
+  {
+    initials: 'DF', name: 'Diane Foster', title: 'Former VP', company: 'Booz Allen Hamilton',
+    stage: 'Empty Nester',
+    bio: "Last kid left for college in August. Rediscovering who I am when I'm not someone's mom first. It's stranger and better than I expected.",
+    gradient: 'linear-gradient(135deg,#FB923C,#EA580C)',
+    circles: ['Empty Nesters D.C.', 'Executive Circle D.C.'],
+    eventName: 'Next Chapter Brunch', eventDetail: 'Chevy Chase · Sun Nov 24, 11am',
+    message: "Hi Diane — I came across your profile and would love to connect. I think we'd have a lot to share."
+  }
+];
+
+const circles = [
+  { name: 'Executive Circle D.C.', members: '47 members' },
+  { name: 'New Moms D.C.', members: '83 members' },
+  { name: 'Newly Single', members: '31 members' },
+  { name: 'Founders & Builders', members: '22 members' },
+  { name: 'Empty Nesters D.C.', members: '19 members' }
+];
+
+// ============================================================
+// SCREEN MANAGEMENT
+// ============================================================
+let currentPerson = 0;
+let currentCircle = 0;
+let screenHistory = [];
+
+function showScreen(id, pushHistory = true) {
+  const screens = document.querySelectorAll('.app-screen');
+  const tabs = document.querySelectorAll('.app-nav-tab');
+
+  screens.forEach(s => {
+    s.classList.remove('active');
+  });
+
+  const target = document.getElementById('screen-' + id);
+  if (target) {
+    target.classList.add('active');
+    if (pushHistory && id !== 'discover' && id !== 'circles' && id !== 'events') {
+      screenHistory.push(id);
+    }
+  }
+
+  // Update bottom nav active state
+  tabs.forEach(t => t.classList.remove('active'));
+  const tab = document.querySelector('[data-screen="' + id + '"]');
+  if (tab) tab.classList.add('active');
+}
+
+// ============================================================
+// BOTTOM NAV
+// ============================================================
+document.querySelectorAll('.app-nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const screen = tab.dataset.screen;
+    if (screen === 'profile-nav') {
+      // Show a simple profile screen (go to discover for now)
+      showScreen('discover');
+    } else {
+      screenHistory = [];
+      showScreen(screen);
+    }
+  });
+});
+
+// ============================================================
+// CITY CHIPS
+// ============================================================
+document.querySelectorAll('#city-chips .app-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#city-chips .app-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+
+    const city = chip.dataset.city;
+    const cards = document.getElementById('profile-cards');
+    const soonMsg = document.getElementById('city-soon-msg');
+
+    if (city === 'dc') {
+      cards.style.display = 'flex';
+      soonMsg.style.display = 'none';
+    } else {
+      const cityName = chip.textContent;
+      cards.style.display = 'none';
+      soonMsg.style.display = 'block';
+      soonMsg.textContent = 'Coming soon to ' + cityName;
+    }
+  });
+});
+
+// ============================================================
+// STAGE CHIPS / FILTER
+// ============================================================
+document.querySelectorAll('#stage-chips .app-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#stage-chips .app-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+
+    const stage = chip.dataset.stage;
+    const cards = document.querySelectorAll('#profile-cards .app-card');
+
+    cards.forEach(card => {
+      if (stage === 'all' || card.dataset.stage === stage) {
+        card.style.display = 'block';
+        card.style.animation = 'none';
+        card.offsetHeight; // reflow
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(8px)';
+        card.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+        requestAnimationFrame(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        });
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+
+// ============================================================
+// PROFILE CARDS — click to view profile
+// ============================================================
+document.querySelectorAll('#profile-cards .app-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const idx = parseInt(card.dataset.person);
+    currentPerson = idx;
+    loadProfileView(idx);
+    showScreen('profile');
+  });
+});
+
+function loadProfileView(idx) {
+  const p = people[idx];
+  document.getElementById('profile-header-name').textContent = p.name;
+  document.getElementById('profile-view-avatar').style.background = p.gradient;
+  document.getElementById('profile-view-avatar').textContent = p.initials;
+  document.getElementById('profile-view-name').textContent = p.name;
+  document.getElementById('profile-view-role').textContent = p.title + ' · ' + p.company;
+  document.getElementById('profile-view-tag').textContent = p.stage;
+  document.getElementById('profile-view-bio').textContent = p.bio;
+  document.getElementById('profile-circle-1').textContent = p.circles[0];
+  document.getElementById('profile-circle-2').textContent = p.circles[1];
+  document.getElementById('profile-event-name').textContent = p.eventName;
+  document.getElementById('profile-event-detail').textContent = p.eventDetail;
+}
+
+// ============================================================
+// PROFILE BACK
+// ============================================================
+document.getElementById('profile-back').addEventListener('click', () => {
+  showScreen('discover');
+});
+
+// ============================================================
+// SEND CONNECTION REQUEST
+// ============================================================
+document.getElementById('send-request-btn').addEventListener('click', () => {
+  const p = people[currentPerson];
+  document.getElementById('connect-header-name').textContent = 'Connect with ' + p.name.split(' ')[0];
+  document.getElementById('connect-avatar').style.background = p.gradient;
+  document.getElementById('connect-avatar').textContent = p.initials;
+  document.getElementById('connect-name').textContent = p.name;
+  document.getElementById('connect-role').textContent = p.title + ' · ' + p.company;
+  document.getElementById('connect-message').value = p.message;
+  showScreen('connect');
+});
+
+document.getElementById('connect-back').addEventListener('click', () => {
+  showScreen('profile');
+});
+
+// ============================================================
+// SEND BUTTON — SUCCESS STATE
+// ============================================================
+document.getElementById('send-btn').addEventListener('click', () => {
+  const overlay = document.getElementById('success-overlay');
+  overlay.classList.add('show');
+  setTimeout(() => {
+    overlay.classList.remove('show');
+    screenHistory = [];
+    showScreen('discover');
+  }, 1500);
+});
+
+// ============================================================
+// CIRCLES — JOIN BUTTONS
+// ============================================================
+document.querySelectorAll('.app-join-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (btn.classList.contains('joined')) return;
+    const circleIdx = parseInt(btn.dataset.circleIdx);
+    const circleName = circles[circleIdx].name;
+    btn.classList.add('joined');
+    btn.textContent = 'Joined ✓';
+    showToast("You've joined " + circleName + "!");
+  });
+});
+
+// CIRCLES — tap card to detail
+document.querySelectorAll('.app-circle-card').forEach(card => {
+  card.addEventListener('click', (e) => {
+    if (e.target.classList.contains('app-join-btn')) return;
+    const idx = parseInt(card.dataset.circle);
+    currentCircle = idx;
+    document.getElementById('circle-detail-name').textContent = circles[idx].name;
+    document.getElementById('circle-detail-count').textContent = circles[idx].members;
+    showScreen('circle-detail');
+  });
+});
+
+document.getElementById('circle-back').addEventListener('click', () => {
+  showScreen('circles');
+});
+
+// POST TO CIRCLE BUTTON
+document.getElementById('post-to-circle-btn').addEventListener('click', () => {
+  showToast("You've joined " + circles[currentCircle].name);
+});
+
+// ============================================================
+// EVENTS — RSVP BUTTONS
+// ============================================================
+document.querySelectorAll('.app-rsvp-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.classList.contains('going')) return;
+    const eventName = btn.dataset.event;
+    btn.classList.add('going');
+    btn.textContent = 'Going ✓';
+    showToast("You're on the list for " + eventName + "!");
+  });
+});
+
+// ============================================================
+// TOAST
+// ============================================================
+let toastTimer = null;
+function showToast(msg) {
+  const toast = document.getElementById('app-toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2000);
+}
+
+// ============================================================
+// FAQ ACCORDION
+// ============================================================
+document.querySelectorAll('.faq-question').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
+// ============================================================
+// INTERSECTION OBSERVER — REVEAL ANIMATIONS
+// ============================================================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
