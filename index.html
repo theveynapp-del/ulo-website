@@ -218,7 +218,7 @@
 
     /* ─── VALUE PROPS ─── */
     .value-props {
-      background: var(--cream);
+      background: var(--light-cream);
       padding: 100px 60px;
     }
 
@@ -273,7 +273,7 @@
 
     /* ─── LIFE STAGES ─── */
     .life-stages {
-      background: var(--light-cream);
+      background: var(--cream);
       padding: 100px 60px;
     }
 
@@ -490,7 +490,7 @@
 
     /* ─── CTA SECTION ─── */
     .cta-section {
-      background: #B56B4A;
+      background: var(--cream);
       padding: 120px 60px;
       text-align: center;
     }
@@ -500,7 +500,7 @@
       font-style: italic;
       font-weight: 400;
       font-size: 56px;
-      color: var(--cream);
+      color: var(--ink);
       line-height: 1.05;
       margin-bottom: 16px;
     }
@@ -509,9 +509,19 @@
       font-family: 'DM Sans', sans-serif;
       font-weight: 300;
       font-size: 18px;
-      color: rgba(247, 242, 234, 0.8);
+      color: var(--warm-mid);
       margin-bottom: 48px;
       line-height: 1.6;
+    }
+
+    .cta-note {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: var(--warm-mid);
+      opacity: 0.6;
+      margin-top: 24px;
+      letter-spacing: 0.02em;
     }
 
     .btn-dark {
@@ -680,6 +690,10 @@
         font-size: 16px;
       }
 
+      .cta-note {
+        font-size: 12px;
+      }
+
       footer {
         padding: 60px 24px 40px;
       }
@@ -735,7 +749,7 @@
 
   <!-- ─── VALUE PROPS ─── -->
   <section class="value-props">
-    <p class="section-eyebrow">Why Ulo</p>
+    <p class="section-eyebrow reveal">Why Ulo</p>
     <div class="value-grid">
       <div class="value-card reveal">
         <div class="value-dash"></div>
@@ -757,8 +771,8 @@
 
   <!-- ─── LIFE STAGES TEASER ─── -->
   <section class="life-stages">
-    <h2 class="section-heading">Ten life stages. One community.</h2>
-    <p class="section-subtext">Wherever you are, there's a circle waiting.</p>
+    <h2 class="section-heading reveal">Ten life stages. One community.</h2>
+    <p class="section-subtext reveal">Wherever you are, there's a circle waiting.</p>
 
     <div class="stages-grid reveal">
       <div class="stage-card">
@@ -856,6 +870,7 @@
     <h2 class="cta-headline reveal">D.C. is first. You can be too.</h2>
     <p class="cta-subhead reveal">We're launching city by city. Join the waitlist for Washington D.C.</p>
     <a href="join.html" class="btn-dark reveal">Join the Waitlist →</a>
+    <p class="cta-note reveal">Membership from $15/month · 7-day free trial · D.C. launching May 2025</p>
   </section>
 
   <!-- ─── FOOTER ─── -->
